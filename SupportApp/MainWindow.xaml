@@ -4,7 +4,35 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SupportApp"
+        xmlns:views="clr-namespace:SupportApp.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid/>
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="200"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition MinWidth="400"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Background="Aqua">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="BlueViolet" Height="100">
+                    <TextBlock Text="{Binding LoginName}" Margin="10,25,134,31" FontSize="16"/>
+                    <Button Content="LogOut" Margin="280,25,0,31" Command="{Binding LogOutCommand}" HorizontalAlignment="Left" Width="86"/>
+                </Grid>
+                <Grid Grid.Row="1" Background="Coral"/>
+            </Grid>
+            <GridSplitter Grid.Column="1" Background="GreenYellow" Width="5" HorizontalAlignment="Center"/>
+            <Grid Grid.Column="2" Background="AntiqueWhite"></Grid>
+        </Grid>
+        <Grid x:Name="LoginModal" Visibility="{Binding IsOpenLogin, Converter={StaticResource BooleanToVisibilityConverter}}" Background="#4C000000" d:IsHidden="True" >
+            <views:LoginControl HorizontalAlignment="Center" VerticalAlignment="Center" DataContext="{Binding Login}"/>
+        </Grid>
+    </Grid>
 </Window>
